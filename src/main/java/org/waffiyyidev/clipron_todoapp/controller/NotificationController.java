@@ -1,4 +1,5 @@
 package org.waffiyyidev.clipron_todoapp.controller;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,19 +14,25 @@ import java.util.List;
 public class NotificationController {
    private final NotificationService notificationService;
 
-   @PostMapping("/{todoId}")
-   public ResponseEntity<Notification> createNotification(@PathVariable Long todoId, @RequestBody Notification notification) {
-      return ResponseEntity.ok(notificationService.createNotification(todoId, notification));
-   }
+   //   @PostMapping("/{todoId}")
+   //   public ResponseEntity<Notification> createNotification(@PathVariable Long todoId,
+   //                                                          @RequestBody Notification notification) {
+   //      return ResponseEntity.ok(notificationService.createNotification(todoId, notification));
+   //   }
+   //
+   //   @GetMapping("/user/{userId}")
+   //   public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
+   //      return ResponseEntity.ok(notificationService.getUserNotifications(userId));
+   //   }
+   //
+   //   @DeleteMapping("/{id}")
+   //   public ResponseEntity<Void> deleteNotification(@PathVariable Long id) {
+   //      notificationService.deleteNotification(id);
+   //      return ResponseEntity.noContent().build();
+   //   }
 
-   @GetMapping("/user/{userId}")
+   @GetMapping("/due-todos/{userId}")
    public ResponseEntity<List<Notification>> getUserNotifications(@PathVariable Long userId) {
       return ResponseEntity.ok(notificationService.getUserNotifications(userId));
-   }
-
-   @DeleteMapping("/{id}")
-   public ResponseEntity<Void> deleteNotification(@PathVariable Long id) {
-      notificationService.deleteNotification(id);
-      return ResponseEntity.noContent().build();
    }
 }

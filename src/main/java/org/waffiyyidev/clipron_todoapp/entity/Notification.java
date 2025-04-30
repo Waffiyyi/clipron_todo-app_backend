@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Notification {
+
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
@@ -20,6 +21,10 @@ public class Notification {
    private LocalDateTime notifyAt;
 
    private boolean sent = false;
+
+   private boolean read = false;
+
+   private LocalDateTime createdAt = LocalDateTime.now();
 
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "todo_id")
