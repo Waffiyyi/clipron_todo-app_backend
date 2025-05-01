@@ -10,9 +10,12 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
-   List<Notification> findByTodo_User_IdAndNotifyAtLessThanEqual(Long userId, LocalDateTime time);
+   List<Notification> findByTodo_User_IdAndNotifyAtLessThanEqualOrderByReadAscNotifyAtDesc(
+     Long userId, LocalDateTime time);
 
-   List<Notification> findByTodo_User_IdAndReadFalseAndNotifyAtLessThanEqual(Long userId, LocalDateTime time);
+   List<Notification> findByTodo_User_IdAndReadFalseAndNotifyAtLessThanEqualOrderByNotifyAtDesc(
+     Long userId, LocalDateTime time);
+
 
    List<Notification> findByTodo_User_IdAndReadFalse(Long userId);
 }

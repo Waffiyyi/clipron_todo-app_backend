@@ -28,7 +28,7 @@ public class NotificationServiceImpl implements NotificationService {
    @Override
    public void createNotificationForTodo(Todo todo) {
       if (todo.getDueDate() != null) {
-         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h.a");
+         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h.mm a");
          String formattedDate = todo.getDueDate().format(formatter);
          String message = "Reminder: '" + todo.getTitle() + "' is due at " + formattedDate;
          Notification notification = new Notification();
@@ -48,10 +48,10 @@ public class NotificationServiceImpl implements NotificationService {
 
       List<Notification> notifications = unreadOnly
                                          ?
-                                         notificationRepository.findByTodo_User_IdAndReadFalseAndNotifyAtLessThanEqual(
+                                         notificationRepository.findByTodo_User_IdAndReadFalseAndNotifyAtLessThanEqualOrderByNotifyAtDesc(
                                            userId, oneHourFromNow)
                                          :
-                                         notificationRepository.findByTodo_User_IdAndNotifyAtLessThanEqual(
+                                         notificationRepository.findByTodo_User_IdAndNotifyAtLessThanEqualOrderByReadAscNotifyAtDesc(
                                            userId, oneHourFromNow);
 
       return notifications.stream()
