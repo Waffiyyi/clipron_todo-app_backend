@@ -1,6 +1,7 @@
 package org.waffiyyidev.clipron_todoapp.service.serviceImpl;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.waffiyyidev.clipron_todoapp.entity.Todo;
@@ -11,16 +12,20 @@ import org.waffiyyidev.clipron_todoapp.exception.UserNotFoundException;
 import org.waffiyyidev.clipron_todoapp.repository.TodoListRepository;
 import org.waffiyyidev.clipron_todoapp.repository.TodoRepository;
 import org.waffiyyidev.clipron_todoapp.repository.UserRepository;
+import org.waffiyyidev.clipron_todoapp.service.NotificationService;
 import org.waffiyyidev.clipron_todoapp.service.TodoService;
 
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TodoServiceImpl implements TodoService {
    private final TodoRepository todoRepository;
    private final UserRepository userRepository;
    private final TodoListRepository todoListRepository;
+   private final NotificationService notificationService;
 
    @Override
    public TodoList createList(Long userId, String name) {
@@ -49,9 +54,11 @@ public class TodoServiceImpl implements TodoService {
 
       todo.setUser(user);
       todo.setList(list);
+      todo.setDueDate(todo.getDueDate());
       Todo savedTodo = todoRepository.save(todo);
       list.getTodos().add(savedTodo);
       todoListRepository.save(list);
+      notificationService.createNotificationForTodo(savedTodo);
       return savedTodo;
    }
 

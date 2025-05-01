@@ -2,6 +2,7 @@ package org.waffiyyidev.clipron_todoapp.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -42,5 +43,6 @@ public class Todo {
    private TodoList list;
 
    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
+   @JsonManagedReference
    private List<Notification> notifications = new ArrayList<>();
 }
