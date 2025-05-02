@@ -22,7 +22,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 ),
                    servers = {
                      @Server(
-                       url = "https://arrogant-maribeth-waffiyyidev-c3f6c2c2.koyeb.app",
+                       url = "https://coastal-turkey-donezo-todo-app-69b1821d.koyeb.app",
                        description = "Production Server"),
 
                      @Server(url = "http://localhost:8065",
