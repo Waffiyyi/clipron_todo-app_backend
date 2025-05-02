@@ -8,6 +8,7 @@ import java.util.List;
 public interface TodoService {
    TodoList createList(Long userId, String name);
    List<TodoList> getTodoListByUser(Long userId);
+   void deleteTodoList(Long listId);
 
    Todo createTodo(Long userId, Todo todo, Long listId);
    List<Todo> getTodosByUser(Long userId, Long listId);

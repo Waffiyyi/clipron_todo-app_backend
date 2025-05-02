@@ -28,6 +28,11 @@ public class TodoController {
       return ResponseEntity.ok(todoService.getTodoListByUser(userId));
    }
 
+   @DeleteMapping("/delete-list/{id}")
+   public ResponseEntity<Void> deleteTodoList(@PathVariable Long id) {
+      todoService.deleteTodoList(id);
+      return ResponseEntity.noContent().build();
+   }
 
 
    @PostMapping("/create/{userId}")

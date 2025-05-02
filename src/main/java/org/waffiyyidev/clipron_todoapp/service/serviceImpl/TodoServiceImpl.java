@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.waffiyyidev.clipron_todoapp.entity.Todo;
 import org.waffiyyidev.clipron_todoapp.entity.TodoList;
 import org.waffiyyidev.clipron_todoapp.entity.User;
+import org.waffiyyidev.clipron_todoapp.exception.BadRequestException;
 import org.waffiyyidev.clipron_todoapp.exception.ResourceNotFoundException;
 import org.waffiyyidev.clipron_todoapp.exception.UserNotFoundException;
 import org.waffiyyidev.clipron_todoapp.repository.TodoListRepository;
@@ -15,7 +16,6 @@ import org.waffiyyidev.clipron_todoapp.repository.UserRepository;
 import org.waffiyyidev.clipron_todoapp.service.NotificationService;
 import org.waffiyyidev.clipron_todoapp.service.TodoService;
 
-import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -42,6 +42,17 @@ public class TodoServiceImpl implements TodoService {
    @Override
    public List<TodoList> getTodoListByUser(Long userId) {
       return todoListRepository.findAllByUserId(userId);
+   }
+
+   @Override
+   public void deleteTodoList(Long listId) {
+      TodoList todoList =
+        todoListRepository.findById(listId).orElseThrow(() -> new ResourceNotFoundException(
+          "TodoList not found", HttpStatus.NOT_FOUND));
+      if (todoList.getName().equals("General")) {
+         throw new BadRequestException("You can't delete the Default list", HttpStatus.BAD_REQUEST);
+      }
+      todoListRepository.delete(todoList);
    }
 
    @Override
