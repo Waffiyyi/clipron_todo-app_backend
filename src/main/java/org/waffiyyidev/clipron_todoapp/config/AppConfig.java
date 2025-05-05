@@ -61,7 +61,9 @@ public class AppConfig {
          public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
             CorsConfiguration cfg = new CorsConfiguration();
             cfg.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://localhost:3000",
-                                                "https://clipron-todo.vercel.app"));
+                                                "https://clipron-todo.vercel.app",
+                                                "http://localhost:8065",
+                                                "https://coastal-turkey-donezo-todo-app-69b1821d.koyeb.app"));
             cfg.setAllowedMethods(Collections.singletonList("*"));
             cfg.setAllowCredentials(true);
             cfg.setAllowedHeaders(Collections.singletonList("*"));
